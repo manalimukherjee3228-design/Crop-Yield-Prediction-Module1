@@ -10,7 +10,7 @@ import joblib
 def run_module_1(file_path="crop_yield.csv"):
     print("\n--- STEP 1: DATASET COLLECTION ---")
     if not os.path.exists(file_path):
-        print(f"❌ Error: {file_path} not found!")
+        print(f"Error: {file_path} not found!")
         return None
     df = pd.read_csv(file_path)
     df.columns = df.columns.str.strip()
@@ -36,7 +36,7 @@ def run_module_1(file_path="crop_yield.csv"):
 
     # Save Cleaned CSV
     df.to_csv("cleaned_crop_yield.csv", index=False)
-    print("💾 Saved 'cleaned_crop_yield.csv'")
+    print("Saved 'cleaned_crop_yield.csv'")
 
     # ==========================================
     # NEW STEP 6: AUTOMATIC EDA CHARTS GENERATION
@@ -78,11 +78,11 @@ def run_module_1(file_path="crop_yield.csv"):
         plt.savefig("eda_charts/rainfall_vs_yield.png", bbox_inches='tight')
         plt.close()
 
-    print("📊 SUCCESS: All 4 analysis charts saved in the 'eda_charts/' folder!")
+    print("SUCCESS: All 4 analysis charts saved in the 'eda_charts/' folder!")
 
     # Machine Learning Processing Split
-    possible_categorical = ['Crop', 'Season', 'State', 'Crop_Year']
-    possible_numerical = ['Area', 'Annual_Rainfall', 'Rainfall', 'Pesticide', 'Fertilizer']
+    possible_categorical = ['Crop', 'Season', 'State']
+    possible_numerical = ['Crop_Year','Area', 'Annual_Rainfall', 'Rainfall', 'Pesticide', 'Fertilizer']
     categorical_cols = [col for col in possible_categorical if col in df.columns]
     numerical_cols = [col for col in possible_numerical if col in df.columns]
 
@@ -101,7 +101,7 @@ def run_module_1(file_path="crop_yield.csv"):
     X_test_proc = preprocessor.transform(X_test)
 
     joblib.dump(preprocessor, "preprocessor.joblib")
-    print("✅ Pipeline preprocessor setup saved successfully!")
+    print("Pipeline preprocessor setup saved successfully!")
     return X_train_proc, X_test_proc, y_train, y_test
 
 if __name__ == "__main__":
